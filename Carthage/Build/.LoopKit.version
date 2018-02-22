@@ -8,23 +8,19 @@
   "tvOS" : [
 
   ],
-  "commitish" : "864707a0311381351dc110c442cf7f63732df7ca",
+  "commitish" : "17e59721401db290e7555e71a59e1e6e00bba343",
   "iOS" : [
     {
       "name" : "GlucoseKit",
-      "hash" : "b7706b2ce272d057b66a0321621fe81cd467f5c6956eab2d1ecaf996a57c556d"
+      "hash" : "15c4f88fb326d2c779f0bfb6cff9c8d84711e8e62dd782f8e5ffc64b933f636e"
     },
     {
       "name" : "InsulinKit",
-      "hash" : "f1259a9c5196726c6a615dc8ac57ee02a21df90deec9a633eef4b1a6fc33d4ea"
-    },
-    {
-      "name" : "LoopKit",
-      "hash" : "2d24e2cb952294b9ff070894ae8f6c49e232c85f93e452b6b9ed9a5e7b14967e"
+      "hash" : "cf882113dd2fa4b7c7473c9bee078894e004babca04c0517e1be95c473b0b112"
     },
     {
       "name" : "CarbKit",
-      "hash" : "277647ec17d0f18c9b67e6062020ecd17b76d3bda69634f6763d8ef04968473b"
+      "hash" : "cbc2d4e30aca5f4c0feaeb99130a1ee44a8b71c3c541ae5ec091a33e81d1fb9f"
     }
   ]
 }
