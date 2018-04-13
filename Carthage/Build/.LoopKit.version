@@ -12,19 +12,19 @@
   "iOS" : [
     {
       "name" : "GlucoseKit",
-      "hash" : "abb1997c1e7fec79bd6b21056a5b2fb378f5abbb8f88162d75dc8992743d1684"
+      "hash" : "bf0f120039bf6c255ae77641530345b7dc2e3e8c0cdd3f31925fb900c5a6524d"
     },
     {
       "name" : "InsulinKit",
-      "hash" : "e5b273689e7af17e8d2b708293ab480f747cb854faba59eb3fe00397dc917ee3"
+      "hash" : "09ed6d1bfd6889bf1f9160331ef89b5b9a8524586a10759e948f5088977fcd6e"
     },
     {
       "name" : "LoopKit",
-      "hash" : "cf1171c223c6878200b23fe83f7bf48b4ab70bd82ace0291ee86fe8fce861fd4"
+      "hash" : "6b5fa80ddfb4462326a27151f8f7284c8c334eeb059870ab606c536f262c3050"
     },
     {
       "name" : "CarbKit",
-      "hash" : "5af9a381c1aab1bc23728370c6212d5ca4dfdb20998aa176be8a87e81f4f77f3"
+      "hash" : "2a8dc107ba66e6ff3e518924f368943b1a190bd01be7a1df97f2c325506ee6fc"
     }
   ]
 }
