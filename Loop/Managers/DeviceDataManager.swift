@@ -824,6 +824,7 @@ extension DeviceDataManager: CGMManagerDelegate {
             loopManager.addGlucose(values, from: manager.device) { _ in
                 self.assertCurrentPumpData()
             }
+            remoteDataManager.nightscoutService.uploader?.uploadSGVFromxDripG5(quantity: values[0].quantity, readDate: values[0].date, device: "Loop")
         case .noData:
             self.assertCurrentPumpData()
             break

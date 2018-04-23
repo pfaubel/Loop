@@ -977,8 +977,8 @@ final class StatusTableViewController: ChartsTableViewController {
             hudView.loopCompletionHUD.addGestureRecognizer(statusTapGestureRecognizer)
             hudView.loopCompletionHUD.accessibilityHint = NSLocalizedString("Shows last loop error", comment: "Loop Completion HUD accessibility hint")
 
-            let glucoseTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openCGMApp(_:)))
-            hudView.glucoseHUD.addGestureRecognizer(glucoseTapGestureRecognizer)
+   //         let glucoseTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openCGMApp(_:)))
+   //         hudView.glucoseHUD.addGestureRecognizer(glucoseTapGestureRecognizer)
             
             if deviceManager.cgm?.appURL != nil {
                 hudView.glucoseHUD.accessibilityHint = NSLocalizedString("Launches CGM app", comment: "Glucose HUD accessibility hint")

@@ -121,7 +121,7 @@ final class G5CGMManager: DexCGMManager, TransmitterDelegate {
 
     init(transmitterID: String?) {
         if let transmitterID = transmitterID {
-            self.transmitter = Transmitter(ID: transmitterID, passiveModeEnabled: true)
+            self.transmitter = Transmitter(id: transmitterID, passiveModeEnabled: false)
         } else {
             self.transmitter = nil
         }
@@ -148,6 +148,8 @@ final class G5CGMManager: DexCGMManager, TransmitterDelegate {
     }
 
     private var latestReading: Glucose?
+    
+    private var commandQueue = CommandQueue()
 
     private var dataIsFresh: Bool {
         guard let latestGlucose = latestReading,
@@ -192,6 +194,17 @@ final class G5CGMManager: DexCGMManager, TransmitterDelegate {
     }
 
     // MARK: - TransmitterDelegate
+    func dequeuePendingCommand(for transmitter: Transmitter) -> Command? {
+        return commandQueue.dequeue()
+    }
+    
+    func transmitter(_ transmitter: Transmitter, didFail command: Command, with error: Error) {
+        logger.info("did fail command \(command) with error \(error)")
+    }
+    
+    func transmitter(_ transmitter: Transmitter, didComplete command: Command) {
+        logger.info("calibrated to \(String(describing: command.rawValue["glucose"])) at \(String(describing: command.rawValue["date"]))")
+    }
 
     func transmitter(_ transmitter: Transmitter, didError error: Error) {
         logger.error(error)
@@ -225,6 +238,10 @@ final class G5CGMManager: DexCGMManager, TransmitterDelegate {
     func transmitter(_ transmitter: Transmitter, didReadUnknownData data: Data) {
         logger.error("Unknown sensor data: " + data.hexadecimalString)
         // This can be used for protocol discovery, but isn't necessary for normal operation
+    }
+    
+    func calibrate(to glucose: HKQuantity) {
+        commandQueue.enqueue(.calibrateSensor(to: glucose, at: Date()))
     }
 }
 
@@ -351,6 +368,26 @@ extension CalibrationState: CustomStringConvertible {
             return NSLocalizedString("Sensor is warming up", comment: "The description of sensor calibration state when sensor sensor is warming up.")
         case .unknown(let rawValue):
             return String(format: NSLocalizedString("Sensor is in unknown state %1$d", comment: "The description of sensor calibration state when raw value is unknown. (1: missing data details)"), rawValue)
+        }
+    }
+}
+
+struct CommandQueue {
+    var list = [Command]()
+    
+    var isEmpty: Bool {
+        return list.isEmpty
+    }
+    
+    mutating func enqueue(_ element: Command) {
+        list.append(element)
+    }
+    
+    mutating func dequeue() -> Command? {
+        if !list.isEmpty {
+            return list.removeFirst()
+        } else {
+            return nil
         }
     }
 }
