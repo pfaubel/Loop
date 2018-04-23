@@ -862,6 +862,9 @@ final class StatusTableViewController: ChartsTableViewController {
             vc.deviceManager = deviceManager
         case let vc as SettingsTableViewController:
             vc.dataManager = deviceManager
+        case let vc as DexcomCGMTableViewController:
+            print("about to segue to Dexcom CGM")
+            vc.deviceManager = deviceManager
         default:
             break
         }
@@ -977,8 +980,8 @@ final class StatusTableViewController: ChartsTableViewController {
             hudView.loopCompletionHUD.addGestureRecognizer(statusTapGestureRecognizer)
             hudView.loopCompletionHUD.accessibilityHint = NSLocalizedString("Shows last loop error", comment: "Loop Completion HUD accessibility hint")
 
-   //         let glucoseTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openCGMApp(_:)))
-   //         hudView.glucoseHUD.addGestureRecognizer(glucoseTapGestureRecognizer)
+            let glucoseTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(openCGMApp(_:)))
+            hudView.glucoseHUD.addGestureRecognizer(glucoseTapGestureRecognizer)
             
             if deviceManager.cgm?.appURL != nil {
                 hudView.glucoseHUD.accessibilityHint = NSLocalizedString("Launches CGM app", comment: "Glucose HUD accessibility hint")
@@ -1008,9 +1011,10 @@ final class StatusTableViewController: ChartsTableViewController {
     }
 
     @objc private func openCGMApp(_: Any) {
-        if let url = deviceManager.cgm?.appURL, UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
-        }
+    //    if let url = deviceManager.cgm?.appURL, UIApplication.shared.canOpenURL(url) {
+    //        UIApplication.shared.open(url)
+    //    }
+        performSegue(withIdentifier: DexcomCGMTableViewController.className, sender: nil)
     }
 }
 

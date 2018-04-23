@@ -5,23 +5,29 @@
 //  Created by Renee on 16/03/2018.
 //  Copyright © 2018 LoopKit Authors. All rights reserved.
 //
+
 import UIKit
 import HealthKit
 
 class DexcomCGMTableViewController: UITableViewController, IdentifiableClass {
     
-    @IBOutlet weak var stateLabel: UITableViewCell! {
-        didSet {
-        }
-    }
+    
+    @IBOutlet weak var sensorStateLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        if let sensorState = self.deviceManager.cgmManager?.sensorState {
+            sensorStateLabel?.text = sensorState.stateDescription
+        } else {
+            sensorStateLabel?.text = "–"
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -50,7 +56,9 @@ class DexcomCGMTableViewController: UITableViewController, IdentifiableClass {
                     return
                 }
                 let glucose = HKQuantity(unit: unit, doubleValue: Double(entry))
-                let cgmManager = self.deviceManager.cgmManager as! G5CGMManager
+                guard let cgmManager = self.deviceManager.cgmManager as? G5CGMManager else {
+                    return
+                }
                 cgmManager.calibrate(to: glucose)
             }
         }))
